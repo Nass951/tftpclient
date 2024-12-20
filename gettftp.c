@@ -12,27 +12,25 @@
 
 
 int gettftp(char *server,char *filename,struct addrinfo *res){
+    
     int sock = socket(res->ai_family, res->ai_socktype, res->ai_protocol);//création du socket
     printf("Socket:%d\n",sock);
 
     // Requête RRQ
-    char buffer[512]; // Taille maximale d'un paquet TFTP
+    char buffer[512];
     int offset = 0;
-
-    // Ajout de l'opcode (2 octets)
-    buffer[offset++] = 0;            // Premier octet (opcode haut)
-    buffer[offset++] = RRQ_OPCODE;   // Deuxième octet (opcode bas)
-
-    // Ajout du nom du fichier
+    buffer[offset++] = 0;          // Opcode haut
+    buffer[offset++] = RRQ_OPCODE; // Opcode bas
+    
     strcpy(&buffer[offset], filename);
-    offset += strlen(filename) + 1;  // +1 pour le caractère nul (\0)
+    offset += strlen(filename) + 1; // +1 pour le caractère nul
+    
+    strcpy(&buffer[offset], MODE);  // Taille maximale d'un paquet TFTP
+    offset += strlen(MODE) + 1;     // +1 pour le caractère nul
 
-    // Ajout du mode de transfert
-    strcpy(&buffer[offset], MODE);
-    offset += strlen(MODE) + 1;      // +1 pour le caractère nul (\0)
-
+    printf("offset : %d \n", offset);
     // Envoi de la requête au serveur
-    ssize_t sent_bytes = sendto(sock, buffer, offset, 0,res->ai_addr, res->ai_addrlen);
+    ssize_t sent_bytes = sendto(sock, buffer, offset, 0, res->ai_addr, res->ai_addrlen);
     
     
     if (sent_bytes == -1) {
