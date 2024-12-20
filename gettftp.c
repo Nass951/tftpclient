@@ -11,8 +11,11 @@
 #define MODE "octet"  // Mode de transfert TFTP (binaire)
 
 
-int gettftp(char *server,char *filename,int sock){
-    // Construction de la requête RRQ
+int gettftp(char *server,char *filename,struct addrinfo *res){
+    int sock = socket(res->ai_family, res->ai_socktype, res->ai_protocol);//création du socket
+    printf("Socket:%d\n",sock);
+
+    // Requête RRQ
     char buffer[512]; // Taille maximale d'un paquet TFTP
     int offset = 0;
 
@@ -29,7 +32,9 @@ int gettftp(char *server,char *filename,int sock){
     offset += strlen(MODE) + 1;      // +1 pour le caractère nul (\0)
 
     // Envoi de la requête au serveur
-    ssize_t sent_bytes = sendto(sock, buffer, offset, 0,res->ai_addr, sizeof(server_addr));
+    ssize_t sent_bytes = sendto(sock, buffer, offset, 0,res->ai_addr, res->ai_addrlen);
+    
+    
     if (sent_bytes == -1) {
         close(sock);
         return -1;  // Erreur d'envoi

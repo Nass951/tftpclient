@@ -2,6 +2,6 @@
 #ifndef GETTFTP_H
 #define GETTFTP_H
 
-int gettftp(const char *server, const char *filename,int sock);
+int gettftp(char *server,char *filename,struct addrinfo *res);
 
 #endif // GETTFTP_H

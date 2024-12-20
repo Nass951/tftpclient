@@ -28,7 +28,9 @@ int main(int argc, char *argv[]) {
     hints.ai_family = AF_INET;        // IPv4
     hints.ai_socktype=SOCK_DGRAM;
     int status = getaddrinfo(server, NULL, &hints, &res);
-    
+    if (res==NULL){
+        printf("Res Null");
+    }
     
     if (status != 0) {
         fprintf(stderr, "Error: %s\n", gai_strerror(status));
@@ -40,9 +42,10 @@ int main(int argc, char *argv[]) {
     inet_ntop(AF_INET, &(ipv4->sin_addr), ipstr, sizeof(ipstr));//binaire en char
 
 
-    int sock = socket(res->ai_family, res->ai_socktype, res->ai_protocol);//création du socket
+    
 
-    int rrq = gettftp(server, file,sock);
+    int answer =gettftp(server,file,res);
+    printf("Buffer non envoyée%d\n",answer);
 
     //affichage su serveur 
     printf("Serveur :%s \nFichier : %s\n",server,file);
