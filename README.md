@@ -1,4 +1,4 @@
-Authors: Nassim Anemiche, BALAKUMAR Kalai
+Authors: ANEMICHE Nassim, BALAKUMAR Kalai
 ---
  # TFTP Client Implementation in C 
 
