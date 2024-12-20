@@ -4,6 +4,7 @@
 This project is a simple implementation of a **TFTP (Trivial File Transfer Protocol)** client in C. It demonstrates how to send a **Read Request (RRQ)** to a TFTP server to retrieve a file using sockets and the UDP protocol.
 
 ---
+** Authors: Nassim Anemiche, BALAKUMAR Kalai** 
  ##  **Project Structure** 
 
 - **`gettftp.h`**: Header file defining the `gettftp` function.
@@ -38,3 +39,5 @@ This project is a simple implementation of a **TFTP (Trivial File Transfer Proto
 Use `gcc` to compile the program:
 ```bash
 gcc -o tftp_client main.c gettftp.c
+
+
