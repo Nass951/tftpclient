@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 
     hints.ai_family = AF_INET;        // IPv4
     hints.ai_socktype=SOCK_DGRAM;
-    int status = getaddrinfo(server, NULL, &hints, &res);
+    int status = getaddrinfo(server, "1069", &hints, &res);
     
     
     if (res==NULL){
@@ -65,7 +65,10 @@ int main(int argc, char *argv[]) {
     
 
     int answer =gettftp(server,file,res);
-    printf("Buffer non envoyée%d\n",answer);
+    if (answer ==-1){
+        printf("Buffer non envoyée%d\n",answer);
+    }
+    else printf("Buffer envoyée\n");
 
     //affichage su serveur 
     printf("Serveur :%s \nFichier : %s\n",server,file);

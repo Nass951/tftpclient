@@ -24,7 +24,7 @@ int gettftp(char *server,char *filename,struct addrinfo *res){
     
     strcpy(&buffer[offset], filename);
     offset += strlen(filename) + 1; // +1 pour le caractère nul
-    
+        
     strcpy(&buffer[offset], MODE);  // Taille maximale d'un paquet TFTP
     offset += strlen(MODE) + 1;     // +1 pour le caractère nul
 
